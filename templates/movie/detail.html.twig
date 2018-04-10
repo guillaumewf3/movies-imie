@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ movie.title }} | {{ parent() }}{% endblock %}
+
+{% block main %}
+    <div class="row">
+        <div class="col col-md-4">
+            <img src="{{ asset('img/posters/' ~ movie.image) }}" alt="{{ movie.title }}">
+            <div>Added on {{ movie.dateCreated|date("Y-m-d") }}</div>
+
+            <h5>Links</h5>
+            <div>
+                <a href="http://www.imdb.com/title/{{ movie.image|slice(0,9) }}/">IMDB</a>
+            </div>
+        </div>
+        <div class="col col-md-8">
+            <h1>{{ movie.title }} <span class="year">{{ movie.year }}</span></h1>
+            <div class="rating">{{ movie.rating }} / 10</div>
+
+            <h5>Stars</h5>
+            <div>
+                {% for actor in movie.actors|split(' / ') %}
+                    {{ actor }}
+                    {% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </div>
+
+            <h5>Directors</h5>
+            <div>{{ movie.directors|replace({' /': ','}) }}</div>
+
+            <h5>Plot</h5>
+            <div>{{ movie.plot }}</div>
+
+            <h5>Trailer</h5>
+            <!-- https://css-tricks.com/NetMag/FluidWidthVideo/Article-FluidWidthVideo.php -->
+            <div class="videoWrapper">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ movie.trailerId }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+
+            <h5>Runtime</h5>
+            {% set runtime_h = (movie.runtime / 60)|round(0, 'floor') %}
+            {% set runtime_m = movie.runtime % 60 %}
+            {% set runtime_m = (runtime_m < 10) ? '0'~runtime_m : runtime_m %}
+            <div>{{ runtime_h }}h{{ runtime_m }}</div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block css %}
+    body {
+        background-image: url('{{ asset('img/backgrounds/' ~ movie.image) }}');
+    }
+{% endblock %}

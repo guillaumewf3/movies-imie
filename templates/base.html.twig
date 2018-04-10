@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Movies!{% endblock %}</title>
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+        {% block stylesheets %}{% endblock %}
+
+        <style>
+        {% block css %}
+            body {
+                background-image: url('{{ asset('img/charles-deluvio-466053-unsplash.jpg') }}');
+            }
+        {% endblock %}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <h1><a href="{{ path('home') }}" title="Back home"><img src="{{ asset('img/logo.png') }}" alt="Movies' logo"> Movies!</a></h1>
+
+                <nav>
+                    <ul class="nav">
+                        <li><a class="nav-link" href="{{ path('home') }}">Home</a></li>
+                        <li><a class="nav-link" href="{{ path('legal_stuff') }}">Legal</a></li>
+                        <li><a class="nav-link" href="{{ path('about_us') }}">About us</a></li>
+                    </ul>
+                </nav>
+            </header>
+            <main>
+                {% block main %}{% endblock %}
+            </main>
+            <footer>
+                {# gsylvestre@gmail.com #}
+                {# crée une variable #}
+                {% set letters = "movies"|split('') %}
+
+                {# boucle sur le tableau de lettres #}
+                {% for letter in letters %}
+                    {# version oneliner avec opérateur ternaire #}
+                    {{ loop.index % 2 == 0 ? letter : letter|upper }}
+
+                    {% if loop.index % 2 == 0 %}
+                        {{ letter }}
+                    {% else %}
+                        {{ letter|upper }}
+                    {% endif %}
+                {% endfor %}
+
+                &copy; {{ "now"|date('Y') }} {{ "movies!"|capitalize }}
+            </footer>
+        </div>
+
+        <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
