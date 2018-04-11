@@ -43,6 +43,17 @@
             {% set runtime_m = (runtime_m < 10) ? '0'~runtime_m : runtime_m %}
             <div>{{ runtime_h }}h{{ runtime_m }}</div>
 
+            <h5>Reviews</h5>
+            <div>
+                {{ form_start(reviewForm) }}
+
+                {{ form_widget(reviewForm) }}
+
+                <button class="btn btn-success">Send!</button>
+                {{ form_end(reviewForm) }}
+            </div>
+
+
         </div>
     </div>
 {% endblock %}

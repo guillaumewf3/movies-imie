@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,21 +19,54 @@ class Review
     private $id;
 
     /**
+     * @Assert\Length(
+     *     max="255",
+     *     maxMessage="Your title is too long dude! 255 max!",
+     *     min="2",
+     *     minMessage="2 chars minimum please!"
+     * )
+     * @Assert\NotBlank(message="Please provide a title!")
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $title;
 
     /**
+     * @Assert\Length(
+     *     max="50",
+     *     maxMessage="Your username is too long dude! 50 max!",
+     *     min="2",
+     *     minMessage="2 chars minimum please!"
+     * )
+     * @Assert\NotBlank(message="Please provide a username!")
      * @ORM\Column(type="string", length=50)
      */
     private $username;
 
     /**
+     *
+     * @Assert\Email(message="Your email is not valid!")
+     * @Assert\Length(
+     *     max="255",
+     *     maxMessage="Your email is too long dude! 255 max!",
+     *     min="2",
+     *     minMessage="2 chars minimum please!"
+     * )
+     * @Assert\NotBlank(message="Please provide a email!")
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $email;
 
     /**
+     *
+     * @Assert\Length(
+     *     max="4000",
+     *     maxMessage="Your review is too long dude! 4000 max!",
+     *     min="2",
+     *     minMessage="2 chars minimum please!"
+     * )
+     * @Assert\NotBlank(message="Please provide a review!")
      * @ORM\Column(type="text")
      */
     private $content;
@@ -53,7 +88,7 @@ class Review
 
     public function setTitle(string $title): self
     {
-        $this->title = $title;
+        $this->title = strip_tags($title);
 
         return $this;
     }
