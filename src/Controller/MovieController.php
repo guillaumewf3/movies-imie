@@ -35,6 +35,8 @@ class MovieController extends Controller
 
         //renseigne programmatiquement la date de création
         $review->setDateCreated(new \DateTime());
+        //et l'associe au film
+        $review->setMovie($movie);
 
         //si le formulaire est soumis...
         if ($reviewForm->isSubmitted() && $reviewForm->isValid()){

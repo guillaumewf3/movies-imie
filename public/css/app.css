@@ -45,7 +45,7 @@ h1 .year {
     font-size: 1.4em;
 }
 
-h5 {
+h5, h6 {
     margin-top: 7px;
     margin-bottom: 2px;
 }

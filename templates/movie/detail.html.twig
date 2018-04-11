@@ -53,6 +53,20 @@
                 {{ form_end(reviewForm) }}
             </div>
 
+            <h5>Last reviews</h5>
+            <div>
+                {% for review in movie.reviews %}
+
+                <div>
+                    <h6>{{ review.title }}</h6>
+                    <p>By {{ review.username }}
+                        on {{ review.dateCreated|date('Y-m-d H:i') }}</p>
+                    <div>{{ review.content }}</div>
+                </div>
+
+                {% endfor %}
+            </div>
+
 
         </div>
     </div>

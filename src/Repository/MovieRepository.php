@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Movie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -18,6 +19,22 @@ class MovieRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Movie::class);
     }
+
+    public function findAllIds($page = 1)
+    {
+        $qb = $this->createQueryBuilder('m');
+        //$qb->andWhere('m.year > 1990 AND m.year < 2000');
+        $qb->addOrderBy('m.rating', 'DESC');
+        $qb->leftJoin('m.reviews', 'r')->addSelect('r');
+        $qb->setMaxResults(50);
+        $qb->setFirstResult(($page-1)*50);
+
+        $query = $qb->getQuery();
+        //$results = $query->getResult();
+        return new Paginator($query);
+    }
+
+
 
 //    /**
 //     * @return Movie[] Returns an array of Movie objects

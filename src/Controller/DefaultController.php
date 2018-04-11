@@ -10,19 +10,25 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="home")
+     * @Route(
+     *     "/{page}",
+     *     name="home",
+     *     defaults={"page":"1"},
+     *     requirements={"page":"[0-9]+"}
+     * )
      */
-    public function home()
+    public function home($page = 1)
     {
         $movieRepo = $this->getDoctrine()->getRepository(Movie::class);
-        $movies = $movieRepo->findBy(
-            [], //clauses where
-            ["rating" => "DESC", "year" => "DESC"], //order by
-            50,  //limit
-            0); //offset
+
+        $movies = $movieRepo->findAllIds($page);
 
         return $this->render("default/home.html.twig", [
-            "movies" => $movies
+            "movies" => $movies,
+            "nextPage" => $page+1,
+            "prevPage" => $page-1,
+            "totalResults" => count($movies),
+            "lastPage" => ceil(count($movies) / 50),
         ]);
     }
 

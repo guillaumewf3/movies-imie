@@ -4,6 +4,18 @@
 
 {% block main %}
 
+    <nav>
+        {% if prevPage >= 1 %}
+        <a class="btn btn-default"
+           href="{{ path('home', {'page': prevPage}) }}">Prev page</a>
+        {% endif %}
+
+        {% if nextPage <= lastPage %}
+        <a class="btn btn-default"
+           href="{{ path('home', {'page': nextPage}) }}">Next page</a>
+        {% endif %}
+    </nav>
+
     {% for movie in movies %}
         <article>
             <a href="{{ path('movie_detail', {'id': movie.id}) }}" title="{{ movie.title }}">

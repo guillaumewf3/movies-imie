@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Entity\Movie;
 use App\Entity\Review;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -49,6 +50,10 @@ class AppLoadDataCommand extends Command
 
         $num = (int) $io->askQuestion(new Question("How many reviews?"));
 
+        //récupère les 50 premiers films
+        $movieRepo = $this->em->getRepository(Movie::class);
+        $movies = $movieRepo->findBy([], ["rating" => "DESC"], 50);
+
         $io->progressStart($num);
         for($i=0; $i<$num; $i++) {
             //crée une instance
@@ -60,6 +65,11 @@ class AppLoadDataCommand extends Command
             $review->setEmail($faker->email);
             $review->setContent($faker->realText(1000));
             $review->setDateCreated($faker->dateTimeBetween("- 2 years"));
+
+            //associe la review à un film au hasard
+            shuffle($movies);
+            $movie = $movies[0];
+            $review->setMovie($movie);
 
             //on demande à Doctrine de sauvegarder notre instance
             $this->em->persist($review);
