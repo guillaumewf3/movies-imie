@@ -19,10 +19,22 @@ header h1 {
 
 header h1 img {
     max-height: 38px;
+    width: auto;
 }
 
-article {
-    float: left;
+.pagination-nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+.movies {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+article.movie {
     width: 200px;
     height: 300px;
     overflow: hidden;

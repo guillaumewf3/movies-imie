@@ -4,7 +4,7 @@
 
 {% block main %}
 
-    <nav>
+    <nav class="pagination-nav">
         {% if prevPage >= 1 %}
         <a class="btn btn-default"
            href="{{ path('home', {'page': prevPage}) }}">Prev page</a>
@@ -16,13 +16,15 @@
         {% endif %}
     </nav>
 
-    {% for movie in movies %}
-        <article>
-            <a href="{{ path('movie_detail', {'id': movie.id}) }}" title="{{ movie.title }}">
-                <img src="{{ asset('img/posters/' ~ movie.image) }}" alt="{{ movie.title }}">
-            </a>
-        </article>
-    {% endfor %}
+    <div class="movies">
+        {% for movie in movies %}
+            <article class="movie">
+                <a href="{{ path('movie_detail', {'id': movie.id}) }}" title="{{ movie.title }}">
+                    <img src="{{ asset('img/posters/' ~ movie.image) }}" alt="{{ movie.title }}">
+                </a>
+            </article>
+        {% endfor %}
+    </div>
 
 {% endblock %}
 

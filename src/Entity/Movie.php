@@ -10,8 +10,25 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\MovieRepository")
  * @ORM\Table(indexes={@ORM\Index(name="search_index", columns={"title"})})
  */
-class Movie
+class Movie implements \JsonSerializable
 {
+    //cette fonction sera appelée lorsqu'on va convertir
+    //en json une instance de Movie
+    public function jsonSerialize()
+    {
+        //pour tout retourner...
+        //return get_object_vars($this);
+
+        return [
+            "id" => $this->getId(),
+            "title" => $this->getTitle(),
+            "year" => $this->getYear(),
+            "rating" => $this->getRating(),
+            //...etc
+        ];
+    }
+
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
