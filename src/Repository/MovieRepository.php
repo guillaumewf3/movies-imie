@@ -20,7 +20,7 @@ class MovieRepository extends ServiceEntityRepository
         parent::__construct($registry, Movie::class);
     }
 
-    public function findAllIds($page = 1)
+    public function findAllIds($page = 1, $keyword = null)
     {
         $qb = $this->createQueryBuilder('m');
         //$qb->andWhere('m.year > 1990 AND m.year < 2000');
@@ -28,6 +28,11 @@ class MovieRepository extends ServiceEntityRepository
         $qb->leftJoin('m.reviews', 'r')->addSelect('r');
         $qb->setMaxResults(50);
         $qb->setFirstResult(($page-1)*50);
+
+        if ($keyword){
+            $qb->andWhere("m.title LIKE :kw OR m.actors LIKE :kw");
+            $qb->setParameter('kw', '%' . $keyword . '%');
+        }
 
         $query = $qb->getQuery();
         //$results = $query->getResult();

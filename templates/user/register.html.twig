@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <h1>Create your account!</h1>
+
+    {# affichage du formulaire d'inscription #}
+    {{ form(registerForm) }}
+{% endblock %}
+
+{% block title %}Register | {{ parent() }}{% endblock %}

@@ -29,6 +29,13 @@
                         <li><a class="nav-link" href="{{ path('home') }}">Home</a></li>
                         <li><a class="nav-link" href="{{ path('legal_stuff') }}">Legal</a></li>
                         <li><a class="nav-link" href="{{ path('about_us') }}">About us</a></li>
+
+                        {% if app.user %}
+                        <li><a class="nav-link" href="{{ path('logout') }}">Logout</a></li>
+                        {% else %}
+                        <li><a class="nav-link" href="{{ path('register') }}">Register</a></li>
+                        <li><a class="nav-link" href="{{ path('login') }}">Login</a></li>
+                        {% endif %}
                     </ul>
                 </nav>
             </header>

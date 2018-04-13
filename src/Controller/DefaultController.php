@@ -21,7 +21,8 @@ class DefaultController extends Controller
     {
         $movieRepo = $this->getDoctrine()->getRepository(Movie::class);
 
-        $movies = $movieRepo->findAllIds($page);
+        $keyword = $request->query->get('kw'); // $_GET['kw']
+        $movies = $movieRepo->findAllIds($page, $keyword);
 
         return $this->render("default/home.html.twig", [
             "movies" => $movies,
@@ -45,6 +46,7 @@ class DefaultController extends Controller
      */
     public function aboutUs()
     {
+
         return $this->render("default/about.html.twig");
     }
 }

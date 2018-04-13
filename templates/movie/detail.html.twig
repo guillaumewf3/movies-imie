@@ -45,12 +45,12 @@
 
             <h5>Reviews</h5>
             <div>
-                {{ form_start(reviewForm) }}
 
-                {{ form_widget(reviewForm) }}
+                    {{ form_start(reviewForm) }}
+                    {{ form_widget(reviewForm) }}
+                    <button class="btn btn-success">Send!</button>
+                    {{ form_end(reviewForm) }}
 
-                <button class="btn btn-success">Send!</button>
-                {{ form_end(reviewForm) }}
             </div>
 
             <h5>Last reviews</h5>
