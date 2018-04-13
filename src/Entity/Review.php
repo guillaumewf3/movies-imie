@@ -32,33 +32,6 @@ class Review
     private $title;
 
     /**
-     * @Assert\Length(
-     *     max="50",
-     *     maxMessage="Your username is too long dude! 50 max!",
-     *     min="2",
-     *     minMessage="2 chars minimum please!"
-     * )
-     * @Assert\NotBlank(message="Please provide a username!")
-     * @ORM\Column(type="string", length=50)
-     */
-    private $username;
-
-    /**
-     *
-     * @Assert\Email(message="Your email is not valid!")
-     * @Assert\Length(
-     *     max="255",
-     *     maxMessage="Your email is too long dude! 255 max!",
-     *     min="2",
-     *     minMessage="2 chars minimum please!"
-     * )
-     * @Assert\NotBlank(message="Please provide a email!")
-     *
-     * @ORM\Column(type="string", length=255)
-     */
-    private $email;
-
-    /**
      *
      * @Assert\Length(
      *     max="4000",
@@ -82,6 +55,12 @@ class Review
      */
     private $movie;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="reviews")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author;
+
     public function getId()
     {
         return $this->id;
@@ -95,30 +74,6 @@ class Review
     public function setTitle(string $title): self
     {
         $this->title = strip_tags($title);
-
-        return $this;
-    }
-
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
-
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
 
         return $this;
     }
@@ -155,6 +110,18 @@ class Review
     public function setMovie(?Movie $movie): self
     {
         $this->movie = $movie;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

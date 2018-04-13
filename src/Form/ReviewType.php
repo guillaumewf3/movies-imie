@@ -21,18 +21,10 @@ class ReviewType extends AbstractType
                     "class" => "my-class"
                 ]
             ])
-            ->add('username', null, [
-                "attr" => [
-                    "placeholder" => "Betty, Bob"
-                ]
-            ])
-            ->add('email', EmailType::class)
+
             ->add('content', null, [
                 "label" => "Your review"
             ])
-            //->add('cgu', CheckboxType::class, [
-            //    "mapped" => false
-            //])
         ;
     }
 

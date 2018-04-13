@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <h1>Your watchlist</h1>
+    {% for wli in watchlistItems %}
+        {% set movie = wli.movie %}
+        <article class="movie">
+            <a href="{{ path('movie_detail', {'id': movie.id}) }}" title="{{ movie.title }}">
+                <img src="{{ asset('img/posters/' ~ movie.image) }}" alt="{{ movie.title }}">
+            </a>
+        </article>
+    {% endfor %}
+{% endblock %}
+
+{% block title %}Watchlist | {{ parent() }}{% endblock %}

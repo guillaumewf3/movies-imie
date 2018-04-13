@@ -6,6 +6,14 @@
     <div class="row">
         <div class="col col-md-4">
             <img src="{{ asset('img/posters/' ~ movie.image) }}" alt="{{ movie.title }}">
+            <div>
+                {% if inWatchlist %}
+                    <a class="btn btn-warning" href="{{ path('watchlist_remove', {'id': movie.id}) }}">Remove from watchlist</a>
+                {% else %}
+                    <a class="btn btn-success" href="{{ path('watchlist_add', {'id': movie.id}) }}">Add to watchlist</a>
+                {% endif %}
+                </div>
+
             <div>Added on {{ movie.dateCreated|date("Y-m-d") }}</div>
 
             <h5>Links</h5>
@@ -45,29 +53,33 @@
 
             <h5>Reviews</h5>
             <div>
-
+                {% if app.user %}
                     {{ form_start(reviewForm) }}
                     {{ form_widget(reviewForm) }}
                     <button class="btn btn-success">Send!</button>
                     {{ form_end(reviewForm) }}
-
+                {% else %}
+                    <a href="{{ path('login') }}">Login to post a review</a>
+                {% endif %}
             </div>
 
             <h5>Last reviews</h5>
             <div>
-                {% for review in movie.reviews %}
-
+                {% for review in reviews %}
                 <div>
                     <h6>{{ review.title }}</h6>
-                    <p>By {{ review.username }}
+                    <p>By {{ review.author.username }}
                         on {{ review.dateCreated|date('Y-m-d H:i') }}</p>
                     <div>{{ review.content }}</div>
-                </div>
 
+                    {% if review.author == app.user %}
+                        <a class="btn btn-danger" href="{{ path('review_delete', {'id': review.id}) }}">Delete my review!</a>
+                    {% endif %}
+                </div>
+                {% else %}
+                    <h6>No reviews yet!</h6>
                 {% endfor %}
             </div>
-
-
         </div>
     </div>
 {% endblock %}

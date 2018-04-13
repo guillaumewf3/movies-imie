@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Movie;
+use App\Form\SearchMovieType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -17,14 +19,24 @@ class DefaultController extends Controller
      *     requirements={"page":"[0-9]+"}
      * )
      */
-    public function home($page = 1)
+    public function home($page = 1, Request $request)
     {
         $movieRepo = $this->getDoctrine()->getRepository(Movie::class);
 
-        $keyword = $request->query->get('kw'); // $_GET['kw']
-        $movies = $movieRepo->findAllIds($page, $keyword);
+        $searchData = [
+            "keyword" => null,
+            "minYear" => 1800,
+            "maxYear" => date("Y")+1
+
+        ];
+        $searchMovieForm = $this->createForm(SearchMovieType::class, $searchData, ["method" => "GET"]);
+        $searchMovieForm->handleRequest($request);
+        $searchData = $searchMovieForm->getData();
+
+        $movies = $movieRepo->findPaginated($page, $searchData["keyword"], $searchData["minYear"], $searchData["maxYear"]);
 
         return $this->render("default/home.html.twig", [
+            "searchMovieForm" => $searchMovieForm->createView(),
             "movies" => $movies,
             "nextPage" => $page+1,
             "prevPage" => $page-1,

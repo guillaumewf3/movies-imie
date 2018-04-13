@@ -5,15 +5,21 @@
 {% block main %}
 
     <nav class="pagination-nav">
+{# on combine les paramètres d'URL de recherche avec le nouveau numéro de page !!#}
+{# merci à https://stackoverflow.com/questions/15606332/symfony2-twig-dealing-with-getting-url-query-string-values?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa #}
         {% if prevPage >= 1 %}
-        <a class="btn btn-default"
-           href="{{ path('home', {'page': prevPage}) }}">Prev page</a>
+            {% set queryParams = app.request.query.all|merge({page: prevPage}) %}
+            <a class="btn btn-default"
+           href="{{ path('home', queryParams) }}">Prev page</a>
         {% endif %}
 
         {% if nextPage <= lastPage %}
-        <a class="btn btn-default"
-           href="{{ path('home', {'page': nextPage}) }}">Next page</a>
+            {% set queryParams = app.request.query.all|merge({page: nextPage}) %}
+            <a class="btn btn-default"
+           href="{{ path('home', queryParams) }}">Next page</a>
         {% endif %}
+
+        {{ form(searchMovieForm) }}
     </nav>
 
     <div class="movies">

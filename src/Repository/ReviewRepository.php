@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Movie;
 use App\Entity\Review;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -19,32 +20,21 @@ class ReviewRepository extends ServiceEntityRepository
         parent::__construct($registry, Review::class);
     }
 
-//    /**
-//     * @return Review[] Returns an array of Review objects
-//     */
-    /*
-    public function findByExampleField($value)
+    public function findMovieReviewsWithUser(Movie $movie)
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        //r = alias de Review
+        $qb = $this->createQueryBuilder('r');
 
-    /*
-    public function findOneBySomeField($value): ?Review
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        //on passe l'objet au complet dans le where
+        $qb->andWhere('r.movie = :movie')
+            ->setParameter('movie', $movie);
+
+        //on fait la jointure et on ajoute au SELECT
+        $qb->join('r.author', 'a')
+            ->addSelect('a'); //facile à oublier !!!!
+
+        $qb->addOrderBy("r.dateCreated", "DESC");
+
+        return $qb->getQuery()->getResult();
     }
-    */
 }

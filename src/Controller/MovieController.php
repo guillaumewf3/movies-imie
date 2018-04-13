@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Movie;
 use App\Entity\Review;
+use App\Entity\WatchlistItem;
 use App\Form\ReviewType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,6 +24,9 @@ class MovieController extends Controller
         //récupère une ligne en fonction de la clef primaire
         $movie = $movieRepo->find($id);
 
+        $reviewRepo = $this->getDoctrine()->getRepository(Review::class);
+        $reviews = $reviewRepo->findMovieReviewsWithUser($movie);
+
         //ou... //->findOneBy(["id" => $id]); //->findOneById($id);
 
         //crée une nouvelle review vide
@@ -38,8 +42,14 @@ class MovieController extends Controller
         //et l'associe au film
         $review->setMovie($movie);
 
-        //si le formulaire est soumis...
-        if ($reviewForm->isSubmitted() && $reviewForm->isValid()){
+        //si le formulaire est soumis, valide et que le user est connecté
+        if ($reviewForm->isSubmitted() &&
+            $reviewForm->isValid() &&
+            $this->getUser()){
+
+            //associe à son auteur
+            $review->setAuthor($this->getUser());
+
             //on sauvegarde l'entité en base de données
             $em->persist($review);
             $em->flush();
@@ -51,9 +61,23 @@ class MovieController extends Controller
             return $this->redirectToRoute('movie_detail', ["id" => $id]);
         }
 
+        //vérifie si le film est déjà dans la watchlist
+        $inWatchlist = false;
+        if ($this->getUser()){
+            $watchlistRepo = $this->getDoctrine()->getRepository(WatchlistItem::class);
+            if ($watchlistRepo->findOneBy([
+                "user" => $this->getUser(),
+                "movie" => $movie,
+            ])){
+                $inWatchlist = true;
+            }
+        }
+
         return $this->render('movie/detail.html.twig', [
             "movie" => $movie,
-            "reviewForm" => $reviewForm->createView()
+            "reviews" => $reviews,
+            "reviewForm" => $reviewForm->createView(),
+            "inWatchlist" => $inWatchlist
         ]);
     }
 

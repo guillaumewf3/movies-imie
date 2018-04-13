@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -53,6 +55,22 @@ class User implements UserInterface
      * @ORM\Column(type="datetime")
      */
     private $dateCreated;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Review", mappedBy="author", orphanRemoval=true)
+     */
+    private $reviews;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\WatchlistItem", mappedBy="user")
+     */
+    private $watchlistItems;
+
+    public function __construct()
+    {
+        $this->reviews = new ArrayCollection();
+        $this->watchlistItems = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -115,6 +133,68 @@ class User implements UserInterface
     public function setDateCreated(\DateTimeInterface $dateCreated): self
     {
         $this->dateCreated = $dateCreated;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Review[]
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Review $review): self
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews[] = $review;
+            $review->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Review $review): self
+    {
+        if ($this->reviews->contains($review)) {
+            $this->reviews->removeElement($review);
+            // set the owning side to null (unless already changed)
+            if ($review->getAuthor() === $this) {
+                $review->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|WatchlistItem[]
+     */
+    public function getWatchlistItems(): Collection
+    {
+        return $this->watchlistItems;
+    }
+
+    public function addWatchlistItem(WatchlistItem $watchlistItem): self
+    {
+        if (!$this->watchlistItems->contains($watchlistItem)) {
+            $this->watchlistItems[] = $watchlistItem;
+            $watchlistItem->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWatchlistItem(WatchlistItem $watchlistItem): self
+    {
+        if ($this->watchlistItems->contains($watchlistItem)) {
+            $this->watchlistItems->removeElement($watchlistItem);
+            // set the owning side to null (unless already changed)
+            if ($watchlistItem->getUser() === $this) {
+                $watchlistItem->setUser(null);
+            }
+        }
 
         return $this;
     }
