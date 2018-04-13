@@ -30,7 +30,8 @@ class WatchlistController extends Controller
      * @Route("/watchlist/add/{id}", name="watchlist_add")
      */
     public function add($id,
-                        EntityManagerInterface $em)
+                        EntityManagerInterface $em,
+                        Request $request)
     {
         $movieRepo = $this->getDoctrine()->getRepository(Movie::class);
         $movie = $movieRepo->find($id);
@@ -45,8 +46,14 @@ class WatchlistController extends Controller
         $em->persist($watchlistItem);
         $em->flush();
 
-        $this->addFlash("success", "Movie added!");
-        return $this->redirectToRoute("movie_detail", ["id" => $id]);
+        if ($request->isXmlHttpRequest()){
+            echo "ok";
+            die();
+        }
+        else {
+            $this->addFlash("success", "Movie added!");
+            return $this->redirectToRoute("movie_detail", ["id" => $id]);
+        }
     }
 
     /**

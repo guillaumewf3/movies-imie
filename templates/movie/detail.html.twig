@@ -8,9 +8,9 @@
             <img src="{{ asset('img/posters/' ~ movie.image) }}" alt="{{ movie.title }}">
             <div>
                 {% if inWatchlist %}
-                    <a class="btn btn-warning" href="{{ path('watchlist_remove', {'id': movie.id}) }}">Remove from watchlist</a>
+                    <a class="remove-btn btn btn-warning" href="{{ path('watchlist_remove', {'id': movie.id}) }}">Remove from watchlist</a>
                 {% else %}
-                    <a class="btn btn-success" href="{{ path('watchlist_add', {'id': movie.id}) }}">Add to watchlist</a>
+                    <a class="add-btn btn btn-success" href="{{ path('watchlist_add', {'id': movie.id}) }}">Add to watchlist</a>
                 {% endif %}
                 </div>
 
@@ -82,6 +82,22 @@
             </div>
         </div>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(".remove-btn, .add-btn").on("click", function(e){
+            e.preventDefault();
+            var url = $(this).attr("href");
+            $.ajax({
+                url: url
+            }).done(function(response){
+                //$(".remove-btn")
+                //    .addClass("add-btn")
+                //    .removeClass("remove-btn")
+                //   .attr("href", "coucou");
+            });
+        })
+    </script>
 {% endblock %}
 
 {% block css %}
