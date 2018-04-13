@@ -9,18 +9,25 @@
 {# merci à https://stackoverflow.com/questions/15606332/symfony2-twig-dealing-with-getting-url-query-string-values?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa #}
         {% if prevPage >= 1 %}
             {% set queryParams = app.request.query.all|merge({page: prevPage}) %}
-            <a class="btn btn-default"
+            <a class="btn btn-primary"
            href="{{ path('home', queryParams) }}">Prev page</a>
+        {% else %}
+            <a href="#" class="btn disabled">Prev page</a>
         {% endif %}
-
+        <div>{{ totalResults }} movies</div>
         {% if nextPage <= lastPage %}
             {% set queryParams = app.request.query.all|merge({page: nextPage}) %}
-            <a class="btn btn-default"
+            <a class="btn btn-primary"
            href="{{ path('home', queryParams) }}">Next page</a>
+        {% else %}
+            <a href="#" class="btn disabled">Next page</a>
         {% endif %}
-
-        {{ form(searchMovieForm) }}
     </nav>
+    <div>
+        {% form_theme searchMovieForm 'bootstrap_4_horizontal_layout.html.twig' %}
+        {{ form(searchMovieForm, {'attr': {'class': 'form-inline'}}) }}
+    </div>
+
 
     <div class="movies">
         {% for movie in movies %}

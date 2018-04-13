@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4e3265b3-a117-4002-8754-753cd3add91f" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Command/AppLoadDataCommand.php" afterPath="$PROJECT_DIR$/src/Command/AppLoadDataCommand.php" />
       <change beforePath="$PROJECT_DIR$/src/Controller/DefaultController.php" afterPath="$PROJECT_DIR$/src/Controller/DefaultController.php" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/MovieController.php" afterPath="$PROJECT_DIR$/src/Controller/MovieController.php" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Review.php" afterPath="$PROJECT_DIR$/src/Entity/Review.php" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" afterPath="$PROJECT_DIR$/src/Entity/User.php" />
-      <change beforePath="$PROJECT_DIR$/src/Form/ReviewType.php" afterPath="$PROJECT_DIR$/src/Form/ReviewType.php" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/MovieRepository.php" afterPath="$PROJECT_DIR$/src/Repository/MovieRepository.php" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/ReviewRepository.php" afterPath="$PROJECT_DIR$/src/Repository/ReviewRepository.php" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" afterPath="$PROJECT_DIR$/templates/base.html.twig" />
       <change beforePath="$PROJECT_DIR$/templates/default/home.html.twig" afterPath="$PROJECT_DIR$/templates/default/home.html.twig" />
-      <change beforePath="$PROJECT_DIR$/templates/movie/detail.html.twig" afterPath="$PROJECT_DIR$/templates/movie/detail.html.twig" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -29,8 +20,8 @@
       <file leaf-file-name="DefaultController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Controller/DefaultController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="720">
-              <caret line="35" column="119" lean-forward="false" selection-start-line="35" selection-start-column="119" selection-end-line="35" selection-end-column="119" />
+            <state relative-caret-position="334">
+              <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
               <folding>
                 <element signature="e#34#55#0#PHP" expanded="true" />
               </folding>
@@ -63,8 +54,8 @@
       <file leaf-file-name="home.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/default/home.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="142">
-              <caret line="7" column="83" lean-forward="false" selection-start-line="7" selection-start-column="83" selection-end-line="7" selection-end-column="83" />
+            <state relative-caret-position="96">
+              <caret line="11" column="37" lean-forward="false" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -115,9 +106,9 @@
         <option value="$PROJECT_DIR$/templates/base.html.twig" />
         <option value="$PROJECT_DIR$/templates/watchlist/show.html.twig" />
         <option value="$PROJECT_DIR$/src/Form/SearchType.php" />
-        <option value="$PROJECT_DIR$/src/Controller/DefaultController.php" />
         <option value="$PROJECT_DIR$/src/Repository/MovieRepository.php" />
         <option value="$PROJECT_DIR$/src/Form/SearchMovieType.php" />
+        <option value="$PROJECT_DIR$/src/Controller/DefaultController.php" />
         <option value="$PROJECT_DIR$/templates/default/home.html.twig" />
       </list>
     </option>
@@ -403,12 +394,12 @@
       <updated>1523264182420</updated>
       <workItem from="1523264185329" duration="2425000" />
       <workItem from="1523267051366" duration="16134000" />
-      <workItem from="1523341978311" duration="77675000" />
+      <workItem from="1523341978311" duration="78235000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="96234000" />
+    <option name="totallyTimeSpent" value="96794000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1060" extended-state="6" />
@@ -830,16 +821,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/DefaultController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="35" column="119" lean-forward="false" selection-start-line="35" selection-start-column="119" selection-end-line="35" selection-end-column="119" />
-          <folding>
-            <element signature="e#34#55#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Repository/MovieRepository.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="622">
@@ -858,10 +839,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/DefaultController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="334">
+          <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+          <folding>
+            <element signature="e#34#55#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/templates/default/home.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="7" column="83" lean-forward="false" selection-start-line="7" selection-start-column="83" selection-end-line="7" selection-end-column="83" />
+        <state relative-caret-position="96">
+          <caret line="11" column="37" lean-forward="false" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="37" />
           <folding />
         </state>
       </provider>

@@ -23,15 +23,18 @@ class DefaultController extends Controller
     {
         $movieRepo = $this->getDoctrine()->getRepository(Movie::class);
 
+        //donnée par défaut du formulaire de recherche
         $searchData = [
             "keyword" => null,
             "minYear" => 1800,
             "maxYear" => date("Y")+1
-
         ];
         $searchMovieForm = $this->createForm(SearchMovieType::class, $searchData, ["method" => "GET"]);
         $searchMovieForm->handleRequest($request);
-        $searchData = $searchMovieForm->getData();
+        //si le form est soumis, on récupère les données
+        if ($searchMovieForm->isSubmitted()) {
+            $searchData = $searchMovieForm->getData();
+        }
 
         $movies = $movieRepo->findPaginated($page, $searchData["keyword"], $searchData["minYear"], $searchData["maxYear"]);
 
